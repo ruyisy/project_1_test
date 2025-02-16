@@ -550,7 +550,7 @@ class SynonymReplacementOptimizer:
         current_score = float(self._compute_score(document))
         best_doc = document
         best_score = current_score
-        semantic_threshold = 0.95
+        semantic_threshold = 0.97
         trajectories = []
         improvement_threshold = 0.0005
         
