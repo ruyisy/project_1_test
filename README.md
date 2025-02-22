@@ -1,4 +1,4 @@
-# ReGENT
+# IRG-Attack Task
 
 ## Repository Structure
 
