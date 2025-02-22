@@ -1,4 +1,4 @@
-# RAG-attack
+# ReGENT
 
 ## Repository Structure
 
