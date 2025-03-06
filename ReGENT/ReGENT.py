@@ -89,8 +89,8 @@ def attack_env_func(doc):
     
     messagesvalue = [
         {"role": "system", "content": f"You are a chatbot who directly performs the user's tasks"},
-        {"role": "user", "content": f'''Given a discussion and a document on a controversial topic, you need to evaluate how well the discussion references the document.You need to carefully analyze the content of the discussion and the document and then giving an exact score between 0 and 1.You just need to output the score and don't output extra content!
-                                    Topic:{question}. Discussion:{text}.Document:{document}.'''},]
+        {"role": "user", "content": f'''Given a discussion and a document on a query, you need to evaluate how well the discussion references the document.You need to carefully analyze the content of the discussion and the document and then giving an exact score between 0 and 1.You just need to output the score and don't output extra content!
+                                    Query:{question}. Discussion:{text}.Document:{document}.'''},]
     prompt = pipeline.tokenizer.apply_chat_template(
     		messagesvalue, 
     		tokenize=False, 
@@ -674,13 +674,9 @@ class SynonymReplacementOptimizer:
                 print(scoredoc)
                 break
                 
-        
-        
-        
-        
         perturbation_rate = len(stats['modified_positions']) / stats['total_words']
-        
-        return best_doc, best_score, stats, perturbation_rate
+        final_similarity = stats['semantic_similarities'][-1]
+        return best_doc, best_score, stats, perturbation_rate, final_similarity
 
     def _compute_reward(self, old_score, new_score, target_score, semantic_similarity, semantic_threshold, quality_change=None):
         
@@ -807,7 +803,7 @@ for index, row in dfk.iterrows():
     scores, ids = indexori.search(query_vectorori, k)
     tarscore = scores[0][flag]
     optimizer = SynonymReplacementOptimizer(tokenizer, model, device, query_vector, query_words)
-    optimized_doc, final_score, stats, purtb,sim = optimizer.optimize_document(
+    optimized_doc, final_score, stats, purtb, sim = optimizer.optimize_document(
         document=document,
         target_score=tscore,
         max_iterations=300
