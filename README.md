@@ -1,5 +1,7 @@
 # IRG-Attack Task
 
+This is the main code and data for peer review reference of the paper. More comprehensive and detailed code and data information will be further improved and supplemented in the future.
+
 ## Repository Structure
 
 - `Surrogate_model/`: Contains code for training the surrogate retrieval model
