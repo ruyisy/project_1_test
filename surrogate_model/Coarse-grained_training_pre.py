@@ -35,7 +35,6 @@ scaler = GradScaler()
 def cls_pooling(model_output):
     return model_output.last_hidden_state[:, 0]
 
-# 定义编码函数
 def encode(texts):
     # Tokenize sentences
     encoded_input = tokenizer(texts, padding=True, max_length=512, truncation=True, return_tensors='pt').to(device)
@@ -60,11 +59,11 @@ import linecache
 import json
 
 # Read query set file
-queries_df = pd.read_csv('queries.csv')  # Assuming queries are stored in queries.csv
+queries_df = pd.read_csv('queries.csv')  
 results = []
 
 for index, row in tqdm(queries_df.iterrows(), total=len(queries_df)):
-    question = row['query']  # Assuming column name is 'query'
+    question = row['query']  
     query_vector = encode([question])
 
     if not query_vector.flags['C_CONTIGUOUS']:
